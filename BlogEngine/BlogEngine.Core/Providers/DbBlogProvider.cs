@@ -440,7 +440,7 @@ namespace BlogEngine.Core.Providers
             {
                 if (conn.HasConnection)
                 {
-                    using (var cmd = conn.CreateTextCommand(string.Format("SELECT BlogId, BlogName, Hostname, IsAnyTextBeforeHostnameAccepted, StorageContainerName, VirtualPath, IsPrimary, IsActive, IsSiteAggregation FROM {0}Blogs ", this.tablePrefix)))
+                    using (var cmd = conn.CreateTextCommand(string.Format("SELECT BlogId, BlogName, Hostname, IsAnyTextBeforeHostnameAccepte, StorageContainerName, VirtualPath, IsPrimary, IsActive, IsSiteAggregation FROM {0}Blogs ", this.tablePrefix)))
                     {
                         using (var rdr = cmd.ExecuteReader())
                         {
@@ -782,7 +782,7 @@ namespace BlogEngine.Core.Providers
             {
                 if (conn.HasConnection)
                 {
-                    var sqlQuery = string.Format("INSERT INTO {0}Blogs (BlogId, BlogName, Hostname, IsAnyTextBeforeHostnameAccepted, StorageContainerName, VirtualPath, IsPrimary, IsActive, IsSiteAggregation) VALUES ({1}BlogId, {1}BlogName, {1}Hostname, {1}IsAnyTextBeforeHostnameAccepted, {1}StorageContainerName, {1}VirtualPath, {1}IsPrimary, {1}IsActive, {1}IsSiteAggregation)", this.tablePrefix, this.parmPrefix);
+                    var sqlQuery = string.Format("INSERT INTO {0}Blogs (BlogId, BlogName, Hostname, IsAnyTextBeforeHostnameAccepte, StorageContainerName, VirtualPath, IsPrimary, IsActive, IsSiteAggregation) VALUES ({1}BlogId, {1}BlogName, {1}Hostname, {1}IsAnyTextBeforeHostnameAccepted, {1}StorageContainerName, {1}VirtualPath, {1}IsPrimary, {1}IsActive, {1}IsSiteAggregation)", this.tablePrefix, this.parmPrefix);
 
                     using (var cmd = conn.CreateTextCommand(sqlQuery))
                     {
@@ -2156,7 +2156,7 @@ namespace BlogEngine.Core.Providers
             {
                 if (conn.HasConnection)
                 {
-                    var sqlQuery = string.Format("UPDATE {0}Blogs SET BlogName = {1}BlogName, Hostname = {1}Hostname, IsAnyTextBeforeHostnameAccepted = {1}IsAnyTextBeforeHostnameAccepted, StorageContainerName = {1}StorageContainerName, VirtualPath = {1}VirtualPath, IsPrimary = {1}IsPrimary, IsActive = {1}IsActive, IsSiteAggregation = {1}IsSiteAggregation WHERE BlogId = {1}BlogId", this.tablePrefix, this.parmPrefix);
+                    var sqlQuery = string.Format("UPDATE {0}Blogs SET BlogName = {1}BlogName, Hostname = {1}Hostname, IsAnyTextBeforeHostnameAccepte = {1}IsAnyTextBeforeHostnameAccepted, StorageContainerName = {1}StorageContainerName, VirtualPath = {1}VirtualPath, IsPrimary = {1}IsPrimary, IsActive = {1}IsActive, IsSiteAggregation = {1}IsSiteAggregation WHERE BlogId = {1}BlogId", this.tablePrefix, this.parmPrefix);
 
                     using (var cmd = conn.CreateTextCommand(sqlQuery))
                     {
@@ -3190,7 +3190,7 @@ namespace BlogEngine.Core.Providers
             parms.Add(conn.CreateParameter(FormatParamName("BlogId"), blog.Id.ToString()));
             parms.Add(conn.CreateParameter(FormatParamName("BlogName"), blog.Name ?? string.Empty));
             parms.Add(conn.CreateParameter(FormatParamName("Hostname"), blog.Hostname ?? string.Empty));
-            parms.Add(conn.CreateParameter(FormatParamName("IsAnyTextBeforeHostnameAccepted"), blog.IsAnyTextBeforeHostnameAccepted));
+            parms.Add(conn.CreateParameter(FormatParamName("IsAnyTextBeforeHostnameAccepte"), blog.IsAnyTextBeforeHostnameAccepted));
             parms.Add(conn.CreateParameter(FormatParamName("StorageContainerName"), blog.StorageContainerName));
             parms.Add(conn.CreateParameter(FormatParamName("VirtualPath"), blog.VirtualPath ?? string.Empty));
             parms.Add(conn.CreateParameter(FormatParamName("IsPrimary"), blog.IsPrimary));
