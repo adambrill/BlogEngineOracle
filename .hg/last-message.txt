@@ -1,0 +1,4 @@
+- Added configuration and validation for reserved blog names
+- SendMailMessage - added optional parameters to test mail without saving settings
+- Small change to display widgets in the admin list
+(2.8.0.0)
