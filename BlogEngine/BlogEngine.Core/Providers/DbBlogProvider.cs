@@ -406,7 +406,7 @@ namespace BlogEngine.Core.Providers
                             {
                                 var br = new BlogRollItem
                                     {
-                                        Id = rdr.GetGuid(0),
+                                        Id = new Guid(rdr.GetString(0)),
                                         Title = rdr.GetString(1),
                                         Description = rdr.IsDBNull(2) ? string.Empty : rdr.GetString(2),
                                         BlogUrl = rdr.IsDBNull(3) ? null : new Uri(rdr.GetString(3)),
@@ -448,15 +448,15 @@ namespace BlogEngine.Core.Providers
                             {
                                 var b = new Blog
                                 {
-                                    Id = rdr.GetGuid(0),
+                                    Id = Guid.Parse(rdr.GetString(0)),
                                     Name = rdr.GetString(1),
                                     Hostname = rdr.GetString(2),
-                                    IsAnyTextBeforeHostnameAccepted = rdr.GetBoolean(3),
+                                    IsAnyTextBeforeHostnameAccepted = int.Parse(rdr.GetValue(3).ToString()) == 1,
                                     StorageContainerName = rdr.GetString(4),
                                     VirtualPath = rdr.GetString(5),
-                                    IsPrimary = rdr.GetBoolean(6),
-                                    IsActive = rdr.GetBoolean(7),
-                                    IsSiteAggregation = rdr.GetBoolean(8)
+                                    IsPrimary = int.Parse(rdr.GetValue(6).ToString()) == 1,
+                                    IsActive = int.Parse(rdr.GetValue(7).ToString()) == 1,
+                                    IsSiteAggregation = int.Parse(rdr.GetValue(8).ToString()) == 1
                                 };
 
                                 blogs.Add(b);
@@ -496,8 +496,8 @@ namespace BlogEngine.Core.Providers
                                     {
                                         Title = rdr.GetString(1),
                                         Description = rdr.IsDBNull(2) ? string.Empty : rdr.GetString(2),
-                                        Parent = rdr.IsDBNull(3) ? (Guid?)null : new Guid(rdr.GetGuid(3).ToString()),
-                                        Id = new Guid(rdr.GetGuid(0).ToString())
+                                        Parent = rdr.IsDBNull(3) ? (Guid?)null : new Guid(rdr.GetString(3)),
+                                        Id = new Guid(rdr.GetString(0))
                                     };
 
                                 categories.Add(cat);
@@ -533,7 +533,7 @@ namespace BlogEngine.Core.Providers
                         {
                             while (rdr.Read())
                             {
-                                pageIDs.Add(rdr.GetGuid(0).ToString());
+                                pageIDs.Add(new Guid(rdr.GetString(0)).ToString());
                             }
                         }
                     }
@@ -565,7 +565,7 @@ namespace BlogEngine.Core.Providers
                         {
                             while (rdr.Read())
                             {
-                                postIDs.Add(rdr.GetGuid(0).ToString());
+                                postIDs.Add(new Guid(rdr.GetString(0)).ToString());
                             }
                         }
                     }
@@ -604,12 +604,12 @@ namespace BlogEngine.Core.Providers
                             {
                                 var refer = new Referrer
                                     {
-                                        Id = rdr.GetGuid(0),
+                                        Id = new Guid(rdr.GetString(0)),
                                         Day = rdr.GetDateTime(1),
                                         ReferrerUrl = new Uri(rdr.GetString(2)),
                                         Count = rdr.GetInt32(3),
                                         Url = rdr.IsDBNull(4) ? null : new Uri(rdr.GetString(4)),
-                                        PossibleSpam = rdr.IsDBNull(5) ? false : rdr.GetBoolean(5)
+                                        PossibleSpam = rdr.IsDBNull(5) ? false : int.Parse(rdr.GetValue(5).ToString()) == 1
                                     };
 
                                 referrers.Add(refer);
@@ -1388,7 +1388,7 @@ namespace BlogEngine.Core.Providers
                         {
                             if (rdr.Read())
                             {
-                                page.Id = rdr.GetGuid(0);
+                                page.Id = new Guid(rdr.GetString(0));
                                 page.Title = rdr.IsDBNull(1) ? String.Empty : rdr.GetString(1);
                                 page.Content = rdr.IsDBNull(3) ? String.Empty : rdr.GetString(3);
                                 page.Description = rdr.IsDBNull(2) ? String.Empty : rdr.GetString(2);
@@ -1409,22 +1409,22 @@ namespace BlogEngine.Core.Providers
 
                                 if (!rdr.IsDBNull(7))
                                 {
-                                    page.IsPublished = rdr.GetBoolean(7);
+                                    page.IsPublished = int.Parse(rdr.GetValue(7).ToString()) == 1;
                                 }
 
                                 if (!rdr.IsDBNull(8))
                                 {
-                                    page.IsFrontPage = rdr.GetBoolean(8);
+                                    page.IsFrontPage = int.Parse(rdr.GetValue(8).ToString()) == 1;
                                 }
 
                                 if (!rdr.IsDBNull(9))
                                 {
-                                    page.Parent = rdr.GetGuid(9);
+                                    page.Parent = new Guid(rdr.GetString(9));
                                 }
 
                                 if (!rdr.IsDBNull(10))
                                 {
-                                    page.ShowInList = rdr.GetBoolean(10);
+                                    page.ShowInList = int.Parse(rdr.GetValue(10).ToString()) == 1;
                                 }
 
                                 if (!rdr.IsDBNull(11))
@@ -1434,7 +1434,7 @@ namespace BlogEngine.Core.Providers
 
                                 if (!rdr.IsDBNull(12))
                                 {
-                                    page.IsDeleted = rdr.GetBoolean(12);
+                                    page.IsDeleted = int.Parse(rdr.GetValue(12).ToString()) == 1;
                                 }
                             }
                         }
@@ -1472,7 +1472,7 @@ namespace BlogEngine.Core.Providers
                         {
                             if (rdr.Read())
                             {
-                                post.Id = rdr.GetGuid(0);
+                                post.Id = new Guid(rdr.GetString(0));
                                 post.Title = rdr.GetString(1);
                                 post.Content = rdr.GetString(3);
                                 post.Description = rdr.IsDBNull(2) ? String.Empty : rdr.GetString(2);
@@ -1493,12 +1493,12 @@ namespace BlogEngine.Core.Providers
 
                                 if (!rdr.IsDBNull(7))
                                 {
-                                    post.IsPublished = rdr.GetBoolean(7);
+                                    post.IsPublished = int.Parse(rdr.GetValue(7).ToString()) == 1;
                                 }
 
                                 if (!rdr.IsDBNull(8))
                                 {
-                                    post.HasCommentsEnabled = rdr.GetBoolean(8);
+                                    post.HasCommentsEnabled = int.Parse(rdr.GetValue(8).ToString()) == 1;
                                 }
 
                                 if (!rdr.IsDBNull(9))
@@ -1515,7 +1515,7 @@ namespace BlogEngine.Core.Providers
 
                                 if (!rdr.IsDBNull(12))
                                 {
-                                    post.IsDeleted = rdr.GetBoolean(12);
+                                    post.IsDeleted = int.Parse(rdr.GetValue(12).ToString()) == 1;
                                 }
                             }
                         }
@@ -1541,7 +1541,7 @@ namespace BlogEngine.Core.Providers
                         {
                             while (rdr.Read())
                             {
-                                var key = rdr.GetGuid(0);
+                                var key = new Guid(rdr.GetString(0));
                                 if (Category.GetCategory(key) != null)
                                 {
                                     post.Categories.Add(Category.GetCategory(key));
@@ -1557,7 +1557,7 @@ namespace BlogEngine.Core.Providers
                             {
                                 var comment = new Comment
                                     {
-                                        Id = rdr.GetGuid(0),
+                                        Id = new Guid(rdr.GetString(0)),
                                         IsApproved = true,
                                         Author = rdr.GetString(2)
                                     };
@@ -1585,9 +1585,9 @@ namespace BlogEngine.Core.Providers
                                     comment.IP = rdr.GetString(7);
                                 }
 
-                                comment.IsApproved = rdr.IsDBNull(8) || rdr.GetBoolean(8);
+                                comment.IsApproved = rdr.IsDBNull(8) || int.Parse(rdr.GetValue(8).ToString()) == 1;
 
-                                comment.ParentId = rdr.GetGuid(9);
+                                comment.ParentId = new Guid(rdr.GetString(9));
 
                                 if (!rdr.IsDBNull(10))
                                 {
@@ -1601,12 +1601,12 @@ namespace BlogEngine.Core.Providers
 
                                 if (!rdr.IsDBNull(12))
                                 {
-                                    comment.IsSpam = rdr.GetBoolean(12);
+                                    comment.IsSpam = int.Parse(rdr.GetValue(12).ToString()) == 1;
                                 }
 
                                 if (!rdr.IsDBNull(13))
                                 {
-                                    comment.IsDeleted = rdr.GetBoolean(13);
+                                    comment.IsDeleted = int.Parse(rdr.GetValue(13).ToString()) == 1;
                                 }
 
                                 post.AllComments.Add(comment);
@@ -2736,7 +2736,7 @@ namespace BlogEngine.Core.Providers
                                     PackageId = rdr.GetString(0),
                                     FileOrder = rdr.GetInt32(1),
                                     FilePath = rdr.GetString(2),
-                                    IsDirectory = rdr.GetBoolean(3)
+                                    IsDirectory = int.Parse(rdr.GetValue(3).ToString()) == 1
                                 };
 
                                 files.Add(f);
@@ -2913,7 +2913,7 @@ namespace BlogEngine.Core.Providers
                             {
                                 var n = new QuickNote()
                                 {
-                                    Id = rdr.GetGuid(0),
+                                    Id = new Guid(rdr.GetString(0)),
                                     Author = userId,
                                     Note = rdr.GetString(1),
                                     Updated = rdr.GetDateTime(2)
