@@ -1550,7 +1550,7 @@ namespace BlogEngine.Core.Providers
                         }
 
                         // Comments
-                        cmd.CommandText = string.Format("SELECT PostCommentID, CommentDate, Author, Email, Website, Comment, Country, Ip, IsApproved, ParentCommentID, ModeratedBy, Avatar, IsSpam, IsDeleted FROM {0}PostComment WHERE BlogID = {1}blogid AND PostID = {1}id", this.tablePrefix, this.parmPrefix);
+                        cmd.CommandText = string.Format("SELECT PostCommentID, CommentDate, Author, Email, Website, Comment_, Country, Ip, IsApproved, ParentCommentID, ModeratedBy, Avatar, IsSpam, IsDeleted FROM {0}PostComment WHERE BlogID = {1}blogid AND PostID = {1}id", this.tablePrefix, this.parmPrefix);
                         using (var rdr = cmd.ExecuteReader())
                         {
                             while (rdr.Read())
@@ -1851,8 +1851,8 @@ namespace BlogEngine.Core.Providers
 
                     // be_PostComment
                     using (var cmd = conn.CreateTextCommand(string.Format(
-                        " INSERT INTO {0}PostComment ( BlogId, PostCommentID, PostID, ParentCommentID, CommentDate, Author, Email, Website, Comment, Country, Ip, IsApproved, ModeratedBy, Avatar, IsSpam, IsDeleted ) " +
-                        " SELECT {1}newblogid, PostCommentID, PostID, ParentCommentID, CommentDate, Author, Email, Website, Comment, Country, Ip, IsApproved, ModeratedBy, Avatar, IsSpam, IsDeleted " +
+                        " INSERT INTO {0}PostComment ( BlogId, PostCommentID, PostID, ParentCommentID, CommentDate, Author, Email, Website, Comment_, Country, Ip, IsApproved, ModeratedBy, Avatar, IsSpam, IsDeleted ) " +
+                        " SELECT {1}newblogid, PostCommentID, PostID, ParentCommentID, CommentDate, Author, Email, Website, Comment_, Country, Ip, IsApproved, ModeratedBy, Avatar, IsSpam, IsDeleted " +
                         " FROM {0}PostComment " +
                         " WHERE BlogID = {1}existingblogid ", this.tablePrefix, this.parmPrefix)))
                     {
@@ -3050,7 +3050,7 @@ namespace BlogEngine.Core.Providers
 
                 foreach (var comment in post.AllComments)
                 {
-                    sqlQuery = string.Format("INSERT INTO {0}PostComment (BlogID, PostCommentID, ParentCommentID, PostID, CommentDate, Author, Email, Website, Comment, Country, Ip, IsApproved, ModeratedBy, Avatar, IsSpam, IsDeleted) VALUES ({1}blogid, {1}postcommentid, {1}parentid, {1}id, {1}date, {1}author, {1}email, {1}website, {1}comment, {1}country, {1}ip, {1}isapproved, {1}moderatedby, {1}avatar, {1}isspam, {1}isdeleted)", this.tablePrefix, this.parmPrefix);
+                    sqlQuery = string.Format("INSERT INTO {0}PostComment (BlogID, PostCommentID, ParentCommentID, PostID, CommentDate, Author, Email, Website, Comment_, Country, Ip, IsApproved, ModeratedBy, Avatar, IsSpam, IsDeleted) VALUES ({1}blogid, {1}postcommentid, {1}parentid, {1}id, {1}date, {1}author, {1}email, {1}website, {1}comment, {1}country, {1}ip, {1}isapproved, {1}moderatedby, {1}avatar, {1}isspam, {1}isdeleted)", this.tablePrefix, this.parmPrefix);
 
                     cmd.CommandText = sqlQuery;
                     parms.Clear();
