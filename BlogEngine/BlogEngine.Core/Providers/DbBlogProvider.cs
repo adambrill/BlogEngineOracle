@@ -3254,7 +3254,13 @@ namespace BlogEngine.Core.Providers
         private DbConnectionHelper CreateConnection()
         {
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[this.connStringName];
-            return new DbConnectionHelper(settings);
+            var helper = new DbConnectionHelper(settings);
+            if (helper.Connection.GetType().Name.Contains("Oracle"))
+            {
+                helper.CreateTextCommand("alter session set NLS_COMP=ANSI").ExecuteNonQuery();
+                helper.CreateTextCommand("alter session set NLS_SORT=BINARY_CI").ExecuteNonQuery();
+            }
+            return helper;
         }
 
     }
