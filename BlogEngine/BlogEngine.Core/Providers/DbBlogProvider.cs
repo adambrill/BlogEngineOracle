@@ -1044,7 +1044,7 @@ namespace BlogEngine.Core.Providers
                             while (rdr.Read())
                             {
                                 var name = rdr.GetString(0);
-                                var value = rdr.GetString(1);
+                                var value = rdr.IsDBNull(1) ? "" : rdr.GetString(1);
 
                                 dic.Add(name, value);
                             }
