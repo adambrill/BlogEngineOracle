@@ -190,6 +190,7 @@
     <Compile Include="Providers\CacheProvider\CacheProvider.cs" />
     <Compile Include="Providers\DbConnectionHelper.cs" />
     <Compile Include="Providers\FileSystemProviders\DbFileSystemProvider.cs" />
+    <Compile Include="Providers\FileSystemProviders\OracleFileSystemProvider.cs" />
     <Compile Include="Providers\FileSystemProviders\UNCFileSystemProvider.cs" />
     <Compile Include="Providers\XmlProvider\Blogs.cs" />
     <Compile Include="Providers\XmlProvider\Packaging.cs" />
