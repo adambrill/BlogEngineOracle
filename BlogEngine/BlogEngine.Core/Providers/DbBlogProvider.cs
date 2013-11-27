@@ -7,7 +7,7 @@ using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
-using System.Transactions;
+//using System.Transactions;
 
 using BlogEngine.Core.DataStore;
 using BlogEngine.Core.Packaging;
@@ -244,8 +244,8 @@ namespace BlogEngine.Core.Providers
         {
             // Only deleting data from be_Blogs.  Data from the other tables
             // will be deleted in DeleteBlogStorageContainer().
-            using (TransactionScope ts = new TransactionScope())
-            {
+            //using (TransactionScope ts = new TransactionScope())
+            //{
                 using (var conn = this.CreateConnection())
                 {
                     if (conn.HasConnection)
@@ -259,8 +259,8 @@ namespace BlogEngine.Core.Providers
 
                     }
                 }
-                ts.Complete();
-            }
+            //    ts.Complete();
+            //}
         }
 
         /// <summary>
@@ -874,8 +874,8 @@ namespace BlogEngine.Core.Providers
         /// </param>
         public override void InsertPost(Post post)
         {
-            using (TransactionScope ts = new TransactionScope())
-            {
+            //using (TransactionScope ts = new TransactionScope())
+            //{
                 using (var conn = this.CreateConnection())
                 {
                     if (conn.HasConnection)
@@ -917,8 +917,8 @@ namespace BlogEngine.Core.Providers
                         // Email Notification
                         this.UpdateNotify(post, conn);
                     }
-                }
-                ts.Complete();
+                //}
+                //ts.Complete();
             }
         }
 
@@ -2250,8 +2250,8 @@ namespace BlogEngine.Core.Providers
         /// </param>
         public override void UpdatePost(Post post)
         {
-            using (TransactionScope ts = new TransactionScope())
-            {
+            //using (TransactionScope ts = new TransactionScope())
+            //{
                 using (var conn = this.CreateConnection())
                 {
                     if (conn.HasConnection)
@@ -2293,8 +2293,8 @@ namespace BlogEngine.Core.Providers
                         // Email Notification
                         this.UpdateNotify(post, conn);
                     }
-                }
-                ts.Complete();
+                //}
+                //ts.Complete();
             }
         }
 
